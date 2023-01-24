@@ -254,6 +254,8 @@ scores.1<-pca.1$scores
 
 dat.new <- cbind(dat.new, scores.1)
 
+write.table(dat.new, "compiled.HT.pca.csv", sep = ",", col.names = NA, append = FALSE )
+
 ###try to see differences across months###
 
 t.1 <- dat.new %>% 
