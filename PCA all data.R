@@ -188,11 +188,7 @@ setkeyv(dat.small.1, c("Hen", "date1"))
 
 dat.small.1 <- dat.small
 
-setDT(dat.small.1)[ , ID := .GRP, by = month]
-  group_by(month) %>% 
- dplyr::mutate(month.1 = cur_group_id())
-  
-setDT(dat)[ , ID := .GRP, by = month]
+
 dat <- dat %>%   
 group_by(month) %>% 
   dplyr::mutate(month.1 = cur_group_id())
@@ -255,6 +251,18 @@ scores.1<-pca.1$scores
 dat.new <- cbind(dat.new, scores.1)
 
 write.table(dat.new, "compiled.HT.pca.csv", sep = ",", col.names = NA, append = FALSE )
+
+###need to put pen in for analysis###
+
+dat.new <- read.csv("compiled.HT.pca.csv")
+
+summary(dat.new)
+
+library(stringr)
+library(tidyverse)
+
+dat.new <- dat.new %>% 
+  mutate(pen = str_extract(Hen, "^.{2}"))
 
 ###try to see differences across months###
 
